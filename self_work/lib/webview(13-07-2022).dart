@@ -16,7 +16,7 @@ class _WebviewpracticeState extends State<Webviewpractice> {
       body: SafeArea(
         child: WebView(
           initialUrl:
-              'https://www.flipkart.com/?s_kwcid=AL!739!3!582822043916!e!!g!!flipkart&gclsrc=aw.ds&&semcmpid=sem_8024046704_brand_exe_buyers_goog&gclid=EAIaIQobChMIr--5_4f1-AIV35lmAh2Qcw_WEAAYASAAEgJk2PD_BwE',
+              'https://twitter.com/explore',
           javascriptMode: JavascriptMode.unrestricted,
           onPageStarted: (value) {
             value = showprogress();
