@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart';
 import 'package:self_work/Api_practice_11-08-2022/homepage.dart';
+import 'package:self_work/Api_practice_11-08-2022/todosmoddeldata.dart';
 
 class Logpage extends StatefulWidget {
   const Logpage({Key? key}) : super(key: key);
@@ -92,7 +93,7 @@ class _LogpageState extends State<Logpage> {
                               onTap: () {
                                 if (_formkey.currentState!.validate()) {
                                   loginapi(usernamecntrl.text, passcntrl.text);
-                                  Get.to(() => const Homepage());
+                                  Get.to(() => const Todosdata());
                                 }
                               },
                               child: const CircleAvatar(
