@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 
 class PracticeWork extends StatefulWidget {
@@ -15,6 +17,8 @@ class _PracticeWorkState extends State<PracticeWork> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      // backgroundColor: Colors.purpleAccent,
+      // floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       appBar: AppBar(
         title: const Text('Practice'),
       ),
@@ -42,7 +46,7 @@ class _PracticeWorkState extends State<PracticeWork> {
             ActionChip(
                 avatar: CircleAvatar(
                     backgroundColor: Colors.grey.shade800,
-                    child: Icon(Icons.add)),
+                    child: const Icon(Icons.add)),
                 label: const Text('Add Memeber'),
                 onPressed: () {
                   print(
@@ -54,8 +58,12 @@ class _PracticeWorkState extends State<PracticeWork> {
                 aspectRatio: 2.0, */
             AspectRatio(
                 aspectRatio: 2.2,
-                child: Image.network(
-                    'https://images.unsplash.com/photo-1501854140801-50d01698950b?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8OXx8bmF0dXJlfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=500&q=60')),
+                child: ColorFiltered(
+                  colorFilter:
+                      const ColorFilter.mode(Colors.blue, BlendMode.colorBurn),
+                  child: Image.network(
+                      'https://images.unsplash.com/photo-1501854140801-50d01698950b?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8OXx8bmF0dXJlfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=500&q=60'),
+                )),
             Form(
               key: _formkey,
               child: Padding(
@@ -65,6 +73,7 @@ class _PracticeWorkState extends State<PracticeWork> {
                     if (value!.isEmpty) {
                       return 'Please Enter the Coupon';
                     }
+                    return null;
                   }),
                   controller: textcontroller,
                   decoration: InputDecoration(
@@ -81,7 +90,6 @@ class _PracticeWorkState extends State<PracticeWork> {
                             if (change == true) {
                               textcontroller.clear();
                             }
-                            // print(textcontroller.text);
                           },
                           child: Container(
                             padding: const EdgeInsets.symmetric(
@@ -92,7 +100,7 @@ class _PracticeWorkState extends State<PracticeWork> {
                             child: Text(
                               change ? 'Apply' : 'Remove',
                               textAlign: TextAlign.center,
-                              style: TextStyle(
+                              style: const TextStyle(
                                   fontSize: 13, fontWeight: FontWeight.bold),
                             ),
                           ),
@@ -103,6 +111,28 @@ class _PracticeWorkState extends State<PracticeWork> {
                 ),
               ),
             ),
+            // ClipRRect(
+            //   borderRadius: BorderRadius.circular(25),
+            //   child: BackdropFilter(
+            //     filter: ImageFilter.blur(sigmaX: 15, sigmaY: 5),
+            //     child: Container(
+            //       height: 100,
+            //       width: 250,
+            //       decoration: BoxDecoration(
+            //           borderRadius: BorderRadius.circular(25),
+            //           color: Colors.purple),
+            //       // child: glast,
+            //     ),
+            //   ),
+            // ),
+            FadeInImage.assetNetwork(
+              width: 200,
+              height: 200,
+              placeholder: 'assets/cc.gif',
+              fadeOutDuration: const Duration(seconds: 2),
+              image:
+                  'https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885__480.jpg',
+            )
           ],
         ),
       ),
