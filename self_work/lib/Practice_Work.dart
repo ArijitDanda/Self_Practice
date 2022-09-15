@@ -1,6 +1,7 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class PracticeWork extends StatefulWidget {
   const PracticeWork({super.key});
@@ -11,8 +12,11 @@ class PracticeWork extends StatefulWidget {
 
 class _PracticeWorkState extends State<PracticeWork> {
   TextEditingController textcontroller = TextEditingController();
-  bool ischeck = true;
-  bool change = true;
+  bool cash = false;
+  bool epay = false;
+  bool isloading = false;
+  bool coupenchange = true;
+  bool switchcheck = false;
   final _formkey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
@@ -25,22 +29,49 @@ class _PracticeWorkState extends State<PracticeWork> {
       body: SingleChildScrollView(
         child: Column(
           children: [
+            Container(
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(30.0),
+                  color: Colors.grey.shade200,
+                  boxShadow: [
+                    BoxShadow(
+                      blurRadius: 30.0,
+                      offset: -Offset(-28, -28),
+                      color: Colors.white,
+                    ),
+                    BoxShadow(
+                        blurRadius: 30.0,
+                        offset: -Offset(-28, -28),
+                        color: Colors.grey.shade400)
+                  ]),
+            ),
             CheckboxListTile(
                 controlAffinity: ListTileControlAffinity.leading,
                 checkboxShape: const CircleBorder(),
                 title: const Text('Cash'),
-                value: ischeck,
+                value: cash,
                 onChanged: (value) {
-                  ischeck = value!;
-                  setState(() {});
+                  setState(() {
+                    cash = value!;
+                    epay = false;
+                  });
                 }),
             CheckboxListTile(
                 controlAffinity: ListTileControlAffinity.leading,
                 checkboxShape: const CircleBorder(),
                 title: const Text('Epay'),
-                value: ischeck,
+                value: epay,
                 onChanged: (value1) {
-                  ischeck = value1!;
+                  setState(() {
+                    epay = value1!;
+                    cash = false;
+                  });
+                }),
+            SwitchListTile(
+                title: Text('jhgjh'),
+                value: switchcheck,
+                onChanged: (value1) {
+                  switchcheck = value1;
                   setState(() {});
                 }),
             ActionChip(
@@ -49,8 +80,10 @@ class _PracticeWorkState extends State<PracticeWork> {
                     child: const Icon(Icons.add)),
                 label: const Text('Add Memeber'),
                 onPressed: () {
-                  print(
-                      'If you stand for nothing, Burr, what’ll you fall for?');
+                  isloading = true;
+                  showprogress();
+                  // print(
+                  //     'If you stand for nothing, Burr, what’ll you fall for?');
                 }),
             /*  AspectRatio(
               This examples shows how AspectRatio sets width when its parent's width constraint is infinite. Since its parent's allowed height is a fixed value, the actual width is determined via the given AspectRatio.
@@ -76,6 +109,7 @@ class _PracticeWorkState extends State<PracticeWork> {
                     return null;
                   }),
                   controller: textcontroller,
+                  autovalidateMode: AutovalidateMode.onUserInteraction,
                   decoration: InputDecoration(
                       alignLabelWithHint: true,
                       suffixIcon: Padding(
@@ -84,10 +118,10 @@ class _PracticeWorkState extends State<PracticeWork> {
                           onTap: () {
                             if (_formkey.currentState!.validate()) {
                               print(textcontroller.text);
-                              change = !change;
+                              coupenchange = !coupenchange;
                               setState(() {});
                             }
-                            if (change == true) {
+                            if (coupenchange == true) {
                               textcontroller.clear();
                             }
                           },
@@ -98,7 +132,7 @@ class _PracticeWorkState extends State<PracticeWork> {
                                 color: Colors.green,
                                 borderRadius: BorderRadius.circular(5.0)),
                             child: Text(
-                              change ? 'Apply' : 'Remove',
+                              coupenchange ? 'Apply' : 'Remove',
                               textAlign: TextAlign.center,
                               style: const TextStyle(
                                   fontSize: 13, fontWeight: FontWeight.bold),
@@ -132,10 +166,29 @@ class _PracticeWorkState extends State<PracticeWork> {
               fadeOutDuration: const Duration(seconds: 2),
               image:
                   'https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885__480.jpg',
-            )
+            ),
           ],
         ),
       ),
     );
+  }
+
+  showprogress() {
+    showDialog(
+        context: context,
+        builder: (context) {
+          return const AlertDialog(
+            backgroundColor: Colors.transparent,
+            content: CircleAvatar(
+              radius: 28,
+              backgroundColor: Colors.grey,
+              child: CircularProgressIndicator(
+                color: Colors.blueGrey,
+                backgroundColor: Colors.white,
+                strokeWidth: 5.0,
+              ),
+            ),
+          );
+        });
   }
 }
