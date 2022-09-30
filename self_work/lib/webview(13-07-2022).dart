@@ -33,7 +33,7 @@ class _WebviewpracticeState extends State<Webviewpractice> {
     showDialog(
         context: context,
         builder: (context) {
-          return AlertDialog(
+          return const AlertDialog(
             content: CupertinoActivityIndicator(
               radius: 20,
             ),

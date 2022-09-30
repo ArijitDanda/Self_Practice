@@ -1,8 +1,11 @@
+// ignore_for_file: file_names, camel_case_types
+
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
 import 'package:self_work/All_Model.dart';
 
+// ignore: camel_case_types
 class Api_integration extends StatefulWidget {
   const Api_integration({Key? key}) : super(key: key);
 
