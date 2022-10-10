@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:self_work/MapImplement/googlemap.dart';
+import 'package:self_work/MapImplement/googlemaptry.dart';
 import 'package:self_work/tictacgame.dart';
 
 void main() {
@@ -16,7 +18,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.purple,
       ),
-      home: const Tictacgame(),
+      home: const GoogleMAptry(),
       debugShowCheckedModeBanner: false,
     );
   }

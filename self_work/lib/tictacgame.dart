@@ -24,40 +24,62 @@ class _TictacgameState extends State<Tictacgame> {
   ];
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.grey[800],
-      body: GridView.builder(
-        itemCount: 9,
-        gridDelegate:
-            const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 3),
-        itemBuilder: (context, index) {
-          return GestureDetector(
-            onTap: () {
-              _tapped(index);
-            },
-            child: Container(
-              decoration: BoxDecoration(
-                border: Border.all(),
-                color: Colors.grey[700],
+    return SafeArea(
+      child: Scaffold(
+        backgroundColor: Colors.grey[800],
+        body: Padding(
+          padding: const EdgeInsets.all(12.0),
+          child: Column(
+            children: [
+              SizedBox(
+                height: MediaQuery.of(context).size.height * 0.02,
               ),
-              child: Center(
-                child: Text(
-                  displayoh[index],
-                  style: const TextStyle(color: Colors.white, fontSize: 40),
+              const Text(
+                'TIC TAC GAME',
+                style: TextStyle(fontSize: 30, color: Colors.white),
+              ),
+              SizedBox(
+                height: MediaQuery.of(context).size.height * 0.10,
+              ),
+              Expanded(
+                child: GridView.builder(
+                  itemCount: 9,
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 3),
+                  itemBuilder: (context, index) {
+                    return GestureDetector(
+                      onTap: () {
+                        _tapped(index);
+                      },
+                      child: Container(
+                        decoration: BoxDecoration(
+                          border: Border.all(),
+                          color: Colors.grey[700],
+                        ),
+                        child: Center(
+                          child: Text(
+                            displayoh[index],
+                            style: const TextStyle(
+                                color: Colors.white, fontSize: 40),
+                          ),
+                        ),
+                      ),
+                    );
+                  },
                 ),
               ),
-            ),
-          );
-        },
+            ],
+          ),
+        ),
       ),
     );
   }
 
   void _tapped(int index) {
     setState(() {
-      if (ohturn) {
+      if (ohturn && displayoh[index] == '') {
         displayoh[index] = '0';
-      } else {
+      } else if (!ohturn && displayoh[index] == '') {
         displayoh[index] = 'x';
       }
       ohturn = !ohturn;
@@ -115,12 +137,29 @@ class _TictacgameState extends State<Tictacgame> {
 
   void showwindialog() {
     showDialog(
+      barrierDismissible: true,
       context: context,
       builder: (context) {
-        return const AlertDialog(
-          title: Text('Winner'),
+        return AlertDialog(
+          title: const Text('Winner'),
+          actions: [
+            TextButton(
+                onPressed: () {
+                  playagain();
+                  Navigator.of(context).pop();
+                },
+                child: const Text('Play Again'))
+          ],
         );
       },
     );
+  }
+
+  playagain() {
+    setState(() {
+      for (int i = 0; i < 9; i++) {
+        displayoh[i] = '';
+      }
+    });
   }
 }
